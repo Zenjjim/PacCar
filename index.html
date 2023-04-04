@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Pygame Game</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js"
+    ></script>
+    <script type="text/javascript">
+      async function start() {
+        await loadPyodide({
+          indexURL: "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/",
+        });
+
+        const pyodide = await loadPyodide();
+        await pyodide.loadPackage(["pygame"]);
+        await pyodide.runPythonAsync("import physics");
+        await pyodide.runPythonAsync("import car");
+
+        const width = 800;
+        const height = 600;
+        const canvas = document.getElementById("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const module = await pyodide.runPythonAsync(`
+                import pygame
+                import main
+
+                pygame.init()
+
+                main.window = pygame.display.set_mode((main.window_width, main.window_height))
+                main.physics.window = main.window
+
+                running = True
+                while running:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+
+                    # Update game objects
+                    main.physics.update()
+                    main.car.update()
+
+                    # Draw game objects
+                    main.window.fill((255, 255, 255))
+                    main.car.draw(main.window)
+
+                    # Update the screen
+                    pygame.display.update()
+
+                    # Clean up Pygame
+                    pygame.quit()
+                `);
+      }
+      start();
+    </script>
+  </body>
+</html>
