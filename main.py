@@ -33,7 +33,7 @@ while running:
     car_obj.control(keys)
     # Update game objects
     car_obj.update()
-    # physics_obj.update()
+    physics_obj.update()
 
     # Draw game objects
     window.fill((255, 255, 255))

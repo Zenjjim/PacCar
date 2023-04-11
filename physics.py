@@ -17,15 +17,15 @@ class PhysicsEngine:
         # Update physics objects in the game
         for obj in self.objects:
             # Detect collisions between object and game window boundaries
-            if obj.position[0] < 0:
-                obj.position[0] = 0
+            if obj.rect.x < 0:
+                obj.rect.x = 0
                 obj.velocity[0] = 0
-            elif obj.position[0] > self.window.get_width() - obj.rect.width:
-                obj.position[0] = self.window.get_width() - obj.rect.width
+            elif obj.rect.x > self.window.get_width() - obj.rect.width:
+                obj.rect.x = self.window.get_width() - obj.rect.width
                 obj.velocity[0] = 0
-            if obj.position[1] < 0:
-                obj.position[1] = 0
+            if obj.rect.y < 0:
+                obj.rect.y = 0
                 obj.velocity[1] = 0
-            elif obj.position[1] > self.window.get_height() - obj.rect.height:
-                obj.position[1] = self.window.get_height() - obj.rect.height
+            elif obj.rect.y > self.window.get_height() - obj.rect.height:
+                obj.rect.y = self.window.get_height() - obj.rect.height
                 obj.velocity[1] = 0
