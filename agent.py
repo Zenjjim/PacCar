@@ -9,7 +9,7 @@ from car import Car
 
 MAX_MEMORY = 10000
 BATCH_SIZE = 1000
-LR = 0.00001
+LR = 0.00003
 DISCOUNT_RATE = 0.95
 LEARNING_ROUNDS = 1_000
 EXPLORATION_DECAY = 0.0001
@@ -64,7 +64,7 @@ def train():
     plot_mean_scores = []
     total_score = 0
     record = float("-inf")
-    cars = [Car() for i in range(1)]
+    cars = [Car() for i in range(5)]
     game = Game()
     agent = Agent(input_shape = game.get_state(cars[0]).shape[0])
 
@@ -101,6 +101,7 @@ def train():
                 break
         if reset:
             # train long memory
+            print("RESETTING")
             for car in cars:
                 car.reset()
                 agent.n_games += len(cars)
@@ -117,6 +118,7 @@ def train():
                 mean_score = total_score / agent.n_games
                 plot_mean_scores.append(mean_score)
                 plot(plot_scores, plot_mean_scores)
+            print("ALL RESET")
             
 if __name__ == "__main__":
     train()
