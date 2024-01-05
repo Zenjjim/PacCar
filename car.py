@@ -4,7 +4,7 @@ from utils import intersection_line, euchlidean_distance
 import numpy as np
 TIMER = 200
 class Car:
-    def __init__(self, pos=(90, 320), size=(15, 30), vel=(0, 0), acc=0.4, angle=0):
+    def __init__(self, pos=(260, 520), size=(15, 30), vel=(0, 0), acc=0.4, angle=0):
         # CONST
         self.car_img = py.transform.scale(py.image.load("car.png"), size)
         self.mask = py.mask.from_surface(self.car_img)
@@ -32,7 +32,7 @@ class Car:
         self.pos += self.vel
 
     def reset(self):
-        self.pos = py.math.Vector2(100, 300)
+        self.pos = py.math.Vector2(260, 520)
         self.vel = py.math.Vector2(0, 0)
         self.angle = 0
         self.score = 0
